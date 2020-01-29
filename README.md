@@ -10,7 +10,7 @@
     - `400 BAD REQUEST`, `{"error": "No file received"}`, if request does not conatins *file* field.
     - `422 UNPROCESSABLE ENTITY`, `{"error": "Unprocessable file received"}`, if *file* is not file.
     - `413 REQUEST ENTITY TOO LARGE`, if file size exceeded.
-  - Example: `curl -F "file=@log.txt" localhost:8080/upload`
+  - Example: `curl -F "file=@log.txt" localhost/upload`
 
 
 - **POST** */mail*
@@ -25,7 +25,7 @@
   - Return:
     - `200 OK`, `{"response": "MAIL SERVER RESPONSE"}` if successful.
     - `400 BAD REQUEST`, `{"code": 0, "message": "message"}` or `{"message": "message"}` otherwise.
-  - Example: `curl -X "POST" "http://localhost:8080/mail" -H 'Content-Type: application/json; charset=utf-8' -d $'{"user_id": "1", "subject": "Example subject", "files": ["0c643948-42df-11ea-9c9c-0242ac110002", "2c3948-42ff-11ea-9c9c-0242ff18123"], "text": "Example text"}'`
+  - Example: `curl -X "POST" "http://localhost/mail" -H 'Content-Type: application/json; charset=utf-8' -d $'{"user_id": "1", "subject": "Example subject", "files": ["0c643948-42df-11ea-9c9c-0242ac110002", "2c3948-42ff-11ea-9c9c-0242ff18123"], "text": "Example text"}'`
 
 
 - **POST** /slack
@@ -40,7 +40,7 @@
   - Return:
     - `OK 200`, `{"response": "MAIL SERVER RESPONSE"}` if successful.
     - `BAD REQUEST 400`, `{"code": 0, "message": "message"}` or `{"message": "message"}` otherwise.  
-  - Example: `curl -X "POST" "http://localhost:8080/slack" -H 'Content-Type: application/json; charset=utf-8' -d $'{"user_id": "1", "subject": "Example subject", "files": ["0c643948-42df-11ea-9c9c-0242ac110002", "2c3948-42ff-11ea-9c9c-0242ff18123"], "text": "Example text"}'`
+  - Example: `curl -X "POST" "http://localhost/slack" -H 'Content-Type: application/json; charset=utf-8' -d $'{"user_id": "1", "subject": "Example subject", "files": ["0c643948-42df-11ea-9c9c-0242ac110002", "2c3948-42ff-11ea-9c9c-0242ff18123"], "text": "Example text"}'`
  
 ## Usage
 
