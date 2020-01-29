@@ -51,7 +51,14 @@ class Mailer:
         message = MIMEMultipart()
         message['From'] = self.username
         message['To'] = self.recepient
-        message['Subject'] = json.get('subject', defaults['subject'])
+        subject = json.get('subject', defaults['subject'])
+        user_id = json.get('user_id', '')
+        
+        if not user_id:
+            return web.HTTPBadRequest(text=f'{{"error": "user_id required"}}')
+            
+        subject = f'[{user_id}] {subject}'
+        message['Subject'] = subject
         message.attach(MIMEText(json.get('text', defaults['text'])))
 
         for file in json.get('files', []):
@@ -139,6 +146,12 @@ class Mailer:
         json = await request.json()
         subject = json.get('subject', defaults['subject'])
         text = json.get('text', defaults['text'])
+        user_id = json.get('user_id', '')
+        
+        if not user_id:
+            return web.HTTPBadRequest(text=f'{{"error": "user_id required"}}')
+            
+        subject = f'[{user_id}] {subject}'
         
         files = json.get('files', [])
         

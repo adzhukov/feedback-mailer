@@ -18,13 +18,14 @@
   - Method: `POST`
   - Content-Type: `application/json;` 
   - Fields:
+    - `user_id` – string, required.
     - `subject` – string, optional.
     - `text` – string, optional.
     - `files` – [string], optional unless *subject* and *text* undefined.
   - Return:
     - `200 OK`, `{"response": "MAIL SERVER RESPONSE"}` if successful.
     - `400 BAD REQUEST`, `{"code": 0, "message": "message"}` or `{"message": "message"}` otherwise.
-  - Example: `curl -X "POST" "http://localhost:8080/mail" -H 'Content-Type: application/json; charset=utf-8' -d $'{"subject": "Example subject", "files": ["0c643948-42df-11ea-9c9c-0242ac110002", "2c3948-42ff-11ea-9c9c-0242ff18123"], "text": "Example text"}'`
+  - Example: `curl -X "POST" "http://localhost:8080/mail" -H 'Content-Type: application/json; charset=utf-8' -d $'{"user_id": "1", "subject": "Example subject", "files": ["0c643948-42df-11ea-9c9c-0242ac110002", "2c3948-42ff-11ea-9c9c-0242ff18123"], "text": "Example text"}'`
 
 
 - **POST** /slack
@@ -32,13 +33,14 @@
   - Method: `POST`
   - Content-Type: `application/json;`
   - Fields:
+    - `user_id` – string, required.
     - `subject` – string, optional.
     - `text` – string, optional.
     - `files` – [string], optional unless *subject* and *text* undefined.
   - Return:
     - `OK 200`, `{"response": "MAIL SERVER RESPONSE"}` if successful.
     - `BAD REQUEST 400`, `{"code": 0, "message": "message"}` or `{"message": "message"}` otherwise.  
-  - Example: `curl -X "POST" "http://localhost:8080/slack" -H 'Content-Type: application/json; charset=utf-8' -d $'{"subject": "Example subject", "files": ["0c643948-42df-11ea-9c9c-0242ac110002", "2c3948-42ff-11ea-9c9c-0242ff18123"], "text": "Example text"}'`
+  - Example: `curl -X "POST" "http://localhost:8080/slack" -H 'Content-Type: application/json; charset=utf-8' -d $'{"user_id": "1", "subject": "Example subject", "files": ["0c643948-42df-11ea-9c9c-0242ac110002", "2c3948-42ff-11ea-9c9c-0242ff18123"], "text": "Example text"}'`
  
 ## Usage
 
