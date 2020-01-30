@@ -38,11 +38,27 @@ class Mailer:
         
         if self.slack_token and self.slack_channel:
             self.app.add_routes([web.post('/slack', self.slack_send_handler)])
-        elif not self.recepient or not self.hostname and not self.port:
+        elif not self.username or not self.password or not self.hostname:
             exit('Incorrect configuration')
+        
+        if self.hostname and self.username and self.password:
+            self.app.add_routes([web.post('/mail', self.send_handler)])
             
-        self.app.add_routes([web.post('/mail', self.send_handler),
-                             web.post('/upload', self.file_upload_handler)])
+        self.app.add_routes([web.post('/upload', self.file_upload_handler)])
+        
+        self.mail_kwargs = {
+            'hostname': self.hostname,
+            'username': self.username,
+            'password': self.password,
+        }
+        
+        if self.port:
+            self.mail_kwargs['port'] = self.port
+        
+        if environ.get('USE_STARTTLS', None):
+            self.mail_kwargs['start_tls'] = True
+        else:
+            self.mail_kwargs['use_tls'] = True
 
 
     async def send_handler(self, request):
@@ -68,8 +84,7 @@ class Mailer:
                 message_part['Content-Disposition'] = f'attachment; filename="{filename}"'
                 message.attach(message_part)
                 
-        res = create_task(aiosmtplib.send(message, hostname=self.hostname, port=self.port,
-                          use_tls=True, username=self.username, password=self.password))
+        res = create_task(aiosmtplib.send(message, **self.mail_kwargs))
         
         try:
             return web.json_response({'response': (await res)[1]})
