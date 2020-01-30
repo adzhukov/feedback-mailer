@@ -7,7 +7,10 @@ build: ## Build container
 	docker build -t $(APP_NAME) .
 
 run: ## Run container 
-	-docker run --rm --env-file=$(ENV_FILE) -p=$(HOST_PORT):$(CONTAINER_PORT) --name="$(APP_NAME)" $(APP_NAME)
+	-docker run -d --rm --env-file=$(ENV_FILE) -p=$(HOST_PORT):$(CONTAINER_PORT) --name="$(APP_NAME)" $(APP_NAME) 
+
+stop:
+	-docker stop $(APP_NAME)
 
 up: build run
 
