@@ -55,7 +55,11 @@ class Mailer:
         if self.port:
             self.mail_kwargs['port'] = self.port
         
-        if environ.get('USE_STARTTLS', None):
+        smtp_tls = environ.get('SMTP_TLS', None)
+        
+        if smtp_tls == 'plain':
+            pass
+        elif smtp_tls == 'starttls':
             self.mail_kwargs['start_tls'] = True
         else:
             self.mail_kwargs['use_tls'] = True
